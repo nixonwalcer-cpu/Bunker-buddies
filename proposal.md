@@ -1,6 +1,3 @@
-Description:
-You live in a house in Ukraine. When you hear the sirens coming from your local nuclear power plant, 
-it's about to blow! You quckily have to grab whatever resources you can and get it in your bunker. 
 # Bunker Buddies
 
 
@@ -19,8 +16,6 @@ and resources to fix it up while trying to survive any potential danger.
 
  - .....
 
-Needs:
-~For house/collection part:
 ### catch phrase 
 - "yo" 
 - "man"
@@ -37,9 +32,6 @@ Needs:
     -An inventory system
     
 
-~For bunker part:
-    -Tasks to complete in each room
-    -A way to make use of items collected in house section
 ### For bunker part:
 
 - only one room for bunker ?
@@ -50,21 +42,13 @@ Needs:
     
 - A way to make use of items collected in house section
         Examples:
-            -Hunger meter, need to go back main room to eat
            ( -Hunger meter, need to go back main room to eat)
             -Certain items to help with certain tasks
-    -A "main room" or a "storage room" where items and food are located
-    -End goal : complete all tasks in bunker while surviving
 
-~Both:
-    -A map with several different rooms, different map for each
-    -An inventory system
 - A "main room" or a "storage room" where items and food are located
 
 - End goal : complete all tasks in bunker while surviving
 
-Nice to haves:
-~For house/collection part:
 
 ## Nice-to-have features:
 
@@ -73,17 +57,12 @@ Nice to haves:
 ### collection part:
  - diffrent characters (bigger person = more inventory but takes more time / smaller person = less inventory but takes less time)
 
-~For bunker part: 
 ### For bunker part: 
     -A combat system, can use items as weapons and raiders and/or radioactive creature invading bunker
     
 ### Two player system
 - you can play as two characters 
 
-~Both:
-    -Two player system
-    -A character creator
-    
     Jeffery Blueman
 
     Wilfred Black
