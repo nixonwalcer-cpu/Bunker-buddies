@@ -12,13 +12,13 @@ bedroom  = Room("Bedroom")
 hallway  = Room("Hallway")
 living_room  = Room("Living_room")
 dining_room  = Room("Dinig_room")
-garage= Room("Cellar")
+garage = Room("Garage")
 bunker_entrence  = Room("bunker_entrence")
-entrance_way  = Room("Entrance")
+foyer  = Room("foyer")
 bathroom = Room("bathroom")
 
 
-the_map = [[bedroom, bunker_entrence, kitchen],
+the_house = [[bedroom, bunker_entrence, kitchen],
            [hallway, hallway, dining_room    ],
            [bedroom, hallway, living_room    ],
-           [garage , entrance_way, bathroom  ]]
+           [garage , foyer, bathroom  ]]
