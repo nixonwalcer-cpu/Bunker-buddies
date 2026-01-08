@@ -6,4 +6,6 @@ CHANGELOG
 
 1.0 - Created a main.py file 
     - Created a bunker.py file - Dec 5th - Nixon 
-    
+
+1.1 Nixon 
+tasks, inventory, made bunker, main menu, made instruction menu for bunker -
