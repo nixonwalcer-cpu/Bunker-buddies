@@ -29,13 +29,13 @@ class Player:
 
 class Inventory:
     
-    def __init__(self, capacity):
-        self.inventory = []
-        self.capacity = capacity
+    def __init__(self):
+        self.inventory = ["Hammer", "Key"]
+        
     
     def view_inventory(self):
         if len(self.inventory) > 0:
-            print(f"{self.name.title()} Inventory:")
+            print("Inventory:")
             for item in self.inventory:
                 print(f" - {item}")
         else:
@@ -58,7 +58,18 @@ class Inventory:
     
 def playing():
     while True:
-        player.movement()   
+        options = ["Move", "Look at inventory"]
+        print("What would you like to do?")
+        for option in options:
+            print(f" - {option}")
+        choice_menu = input("choice: ")
+        if choice_menu == options[0]:
+            player.movement()
+        elif choice_menu == options[1]:
+           player_inventory.view_inventory()
+        else:
+            print("sorry that was not a vaild choice")  
 
 player = Player()
+player_inventory = Inventory()
 playing()
