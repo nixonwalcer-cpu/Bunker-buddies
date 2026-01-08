@@ -30,7 +30,7 @@ class Player:
 class Inventory:
     
     def __init__(self):
-        self.inventory = ["Hammer", "Key"]
+        self.inventory = []
         
     
     def view_inventory(self):
@@ -62,7 +62,7 @@ def playing():
         print("What would you like to do?")
         for option in options:
             print(f" - {option}")
-        choice_menu = input("choice: ")
+        choice_menu = (input("choice: ")).title
         if choice_menu == options[0]:
             player.movement()
         elif choice_menu == options[1]:
