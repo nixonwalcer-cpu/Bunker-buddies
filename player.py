@@ -14,6 +14,9 @@ class Player:
         self.row = 3
         self.col = 1
         self.map = map
+        self.inventory = []
+        self.capacity = 5
+
     def movement(self):
         # Sub Men
         movement_options = ["North", "South", "East", "West" ]
@@ -37,52 +40,38 @@ class Player:
             print("Sorry you can not move that way.")
         print(self.row, self.col)
 
-        def look_for_items(self):
-            while True:
-                if [self.row, self.col].items != None:
-                    print("Here are the items in this room:")
-                    items = [self.row, self.col].items
-                    for item in items:
-                        print(f" - {item}")
-                    print(" - Back")
-                    choice_item = input("Wich one do you want:")
-                    if choice_item == items:
-                        self.add_item(choice_item)
-                    elif choice_item == "Back":
-                        break
-                    else:
-                        print("Not a vaild choice")
+    def look_for_items(self):
+        while True:
+            if self.map[self.row][self.col].item != None: 
+                print("Here are the items in this room:")
+                items = self.map[self.row][self.col].item
+                for item in items:
+                    print(f" - {item}")
+                print(" - Back")
+                choice_item = input("Wich one do you want:")
+                if choice_item in self.map[self.row][self.col].item:
+                    self.add_item(choice_item)
+                elif choice_item == "Back":
+                    break
                 else:
-                    print("There are no items in this room")
+                    print("Not a vaild choice")
+            else:
+                print("There are no items in this room")
 
-class Inventory:
-    
-    def __init__(self):
-        self.inventory = []
-        
-    
-    def view_inventory(self):
-        if len(self.inventory) > 0:
-            print("Inventory:")
-            for item in self.inventory:
-                print(f" - {item}")
-        else:
-            print(f"Your Inventory is empty.")
-    
-    #def remove_item(self, item):
-        #if item in self.inventory:
-            #print(f"You removed a {item} from your {self.name}.")
-            #self.inventory.remove(item)
-        #else:
-            #print(f"Sorry their are no {item}s in your {Net}.")
-    
     def add_item(self, item):
         if len(self.inventory) < self.capacity:
             print(f"You added a {item} to you inventory.")
             self.inventory.append(item)
         else:
             print(f"Sorry your inventory is already full.")
-        
+
+     #def remove_item(self, item):
+        #if item in self.inventory:
+            #print(f"You removed a {item} from your {self.name}.")
+            #self.inventory.remove(item)
+        #else:
+            #print(f"Sorry their are no {item}s in your {Net}.")
+
     
             
 
@@ -112,12 +101,11 @@ def playing():
         if choice_menu == options[0]:
             player.movement()
         elif choice_menu == options[1]:
-           player_inventory.view_inventory()
+           player.view_inventory()
         elif choice_menu == options[2]:
            player.look_for_items()
         else:
             print("sorry that was not a vaild choice")  
 
 player = Player(the_house)
-player_inventory = Inventory()
 playing()
