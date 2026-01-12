@@ -1,3 +1,5 @@
+import item_module as i
+
 class Room:
     
     def __init__(self, name, items):
@@ -46,7 +48,7 @@ class Player:
                 print("Here are the items in this room:")
                 items = self.map[self.row][self.col].item
                 for item in items:
-                    print(f" - {item}")
+                    print(f" - {item.name} capacity : {item.capacity}")
                 print(" - Back")
                 choice_item = input("Wich one do you want:")
                 if choice_item in self.map[self.row][self.col].item:
@@ -75,16 +77,16 @@ class Player:
     
             
 
-kitchen = Room("kitchen", ["Knife","Pan","Spatula"])
-bedroom1  = Room("Bedroom", ["Blanket","Teddy Bear","Gum"])
+kitchen = Room("kitchen", [i.hammer, i.pan, i.spatula] )
+bedroom1  = Room("Master Bedroom", [i.blanket, i.teddy_bear, i.gum] )
 hallway  = Room("Hallway", None)
-living_room  = Room("Living_room", ["Pillow","Lap","Battries"])
-dining_room  = Room("Dinig_room", ["Fork","Spoon","Plate"])
-garage = Room("Garage", ["Hammer","Duct tape","Screwdriver"])
+living_room  = Room("Living_room",[i.pillow, i.lamp, i.battries] )
+dining_room  = Room("Dinig_room", [i.fork, i.spoon, i.plate])
+garage = Room("Garage", [i.hammer, i.duct_tape, i.screwdriver])
 bunker_entrence  = Room("bunker_entrence", None)
 foyer  = Room("foyer", None)
-bathroom = Room("bathroom", ["Plunger","Toothpaste","Mouthwash"])
-bedroom2  = Room("Bedroom", ["T-shirt","Action figure","Candy bar"])
+bathroom = Room("bathroom",[i.plunger, i.toothpaste, i.mouthwash])
+bedroom2  = Room("Bedroom", [i.t_shirt, i.action_figure, i.candy_bar])
 
 the_house = [[bedroom1, bunker_entrence, kitchen],
            [hallway, hallway, dining_room    ],
