@@ -2,9 +2,9 @@ import item_module as i
 
 class Room:
     
-    def __init__(self, name, items):
+    def __init__(self, name, item):
         self.name = name
-        self.item = items
+        self.item = item
         
 
     def __str__(self):
@@ -47,19 +47,21 @@ class Player:
             if self.map[self.row][self.col].item != None: 
                 print("Here are the items in this room:")
                 items = self.map[self.row][self.col].item
-                for item in items:
-                    print(f" - {item.name} capacity : {item.capacity}")
+                for item in items.keys():
+                    print(f" - {item}, Capacity : {items[item].capacity}")
                 print(" - Back")
                 choice_item = input("Wich one do you want:")
-                if choice_item in self.map[self.row][self.col].item:
+                if choice_item in items.keys():
                     self.add_item(choice_item)
+                    del self.map[self.row][self.col].item[choice_item]
                 elif choice_item == "Back":
                     break
                 else:
                     print("Not a vaild choice")
             else:
                 print("There are no items in this room")
-
+                break
+            
     def add_item(self, item):
         if len(self.inventory) < self.capacity:
             print(f"You added a {item} to you inventory.")
@@ -77,16 +79,29 @@ class Player:
     
             
 
-kitchen = Room("kitchen", [i.hammer, i.pan, i.spatula] )
-bedroom1  = Room("Master Bedroom", [i.blanket, i.teddy_bear, i.gum] )
+kitchen = Room("kitchen", {i.knife.name : i.knife, i.pan.name :i.pan, 
+                           i.spatula.name : i.spatula} )
+bedroom1  = Room("Master Bedroom", {i.blanket.name : i.blanket, 
+                                    i.teddy_bear.name :i.teddy_bear, 
+                                    i.gum.name :i.gum} )
 hallway  = Room("Hallway", None)
-living_room  = Room("Living_room",[i.pillow, i.lamp, i.battries] )
-dining_room  = Room("Dinig_room", [i.fork, i.spoon, i.plate])
-garage = Room("Garage", [i.hammer, i.duct_tape, i.screwdriver])
+living_room  = Room("Living_room",{i.pillow.name : i.pillow, 
+                                   i.lamp.name :i.lamp, 
+                                   i.battries.name : i.battries} )
+dining_room  = Room("Dinig_room", {i.fork.name : i.fork, 
+                                   i.spoon.name :i.spoon, 
+                                   i.plate.name :i.plate})
+garage = Room("Garage", {i.hammer.name : i.hammer, 
+                         i.duct_tape.name :i.duct_tape, 
+                         i.screwdriver.name :i.screwdriver})
 bunker_entrence  = Room("bunker_entrence", None)
 foyer  = Room("foyer", None)
-bathroom = Room("bathroom",[i.plunger, i.toothpaste, i.mouthwash])
-bedroom2  = Room("Bedroom", [i.t_shirt, i.action_figure, i.candy_bar])
+bathroom = Room("bathroom",{i.plunger.name :i.plunger, 
+                            i.toothpaste.name :i.toothpaste, 
+                            i.mouthwash.name :i.mouthwash})
+bedroom2  = Room("Bedroom", {i.teddy_bear.name :i.t_shirt, 
+                             i.action_figure.name :i.action_figure, 
+                             i.candy_bar.name :i.candy_bar})
 
 the_house = [[bedroom1, bunker_entrence, kitchen],
            [hallway, hallway, dining_room    ],
