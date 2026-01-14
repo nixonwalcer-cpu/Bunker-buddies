@@ -40,20 +40,21 @@ class Player:
                 self.col += 1
         else:
             print("Sorry you can not move that way.")
-        print(self.row, self.col)
+        print(f"Your in the {self.map[self.row][self.col].name}")
 
     def look_for_items(self):
-        while True:
-            if self.map[self.row][self.col].item != None: 
-                print("Here are the items in this room:")
-                items = self.map[self.row][self.col].item
-                for item in items.keys():
+        #sub menu
+        while True:#while loop
+            if self.map[self.row][self.col].item != None:#makes sure items are in the room
+                print(f"Here are the items in the {self.map[self.row][self.col].name}:")
+                items = self.map[self.row][self.col].item#gets dict
+                for item in items.keys():#prints out items
                     print(f" - {item}, Capacity : {items[item].capacity}")
-                print(" - Back")
-                choice_item = input("Wich one do you want:")
-                if choice_item in items.keys():
-                    self.add_item(choice_item)
-                    del self.map[self.row][self.col].item[choice_item]
+                print(" - Back")#go back to main menu
+                choice_item = input("Wich one do you want:")# gets choice form player
+                if choice_item in items.keys():#checks if choice is vaild
+                    self.add_item(choice_item)#add item to inventory
+                    del self.map[self.row][self.col].item[choice_item]#del item form dict
                 elif choice_item == "Back":
                     break
                 else:
@@ -63,20 +64,34 @@ class Player:
                 break
             
     def add_item(self, item):
-        if len(self.inventory) < self.capacity:
+        if len(self.inventory) < self.capacity:#checks if item fits in inventory
             print(f"You added a {item} to you inventory.")
             self.inventory.append(item)
+            self.capacity = self.capacity - item.capacitcity
         else:
             print(f"Sorry your inventory is already full.")
 
-     #def remove_item(self, item):
-        #if item in self.inventory:
-            #print(f"You removed a {item} from your {self.name}.")
-            #self.inventory.remove(item)
-        #else:
-            #print(f"Sorry their are no {item}s in your {Net}.")
+    def remove_item(self, item):
+        if item in self.inventory:
+            print(f"You removed a {item} from your inventory.")
+            self.inventory.remove(item)
+        else:
+            print(f"Sorry their are no {item}s in your inventory.")
 
+    def view_inventory(self):
+        if len(self.inventory) > 0:
+            print("Inventory:")
+            for item in self.inventory:
+                print(f" - {item.name}, Capacity : {item.capacity}")
+            print(f"Capacity left: {self.capacity}")
+        else:
+            print(f"Your Inventory is empty.")
     
+    def view_map(self):
+        print(f"{self.map}")
+        print(f"Your in the {self.map[self.row][self.col].name}")
+
+
             
 
 kitchen = Room("kitchen", {i.knife.name : i.knife, i.pan.name :i.pan, 
@@ -109,18 +124,28 @@ the_house = [[bedroom1, bunker_entrence, kitchen],
            [garage , foyer, bathroom  ]]
     
 def playing():
+    print("You turn on the tv to see BREAKING NEWS!")
+    print("CHERNOBAL IS ABOUT TO EXPLODE!")
+    print("You quickly remeber the bunker you have that should protect you" \
+    "form  the blast. But when you get in your bunker") 
+    print("you relize that the bunker is in complete disarray!")
+    print("Quickly, you need to find whatever" \
+    " you can in your house to fix it up!")
+    print("")
     while True:
-        options = ["Move", "Look at inventory", "Look for items"]
+        options = ["move", "look at inventory", "look for items", "view map"]
         print("What would you like to do?")
         for option in options:
-            print(f" - {option}")
-        choice_menu = input("choice: ")
+            print(f"- {option.title()}")
+        choice_menu = input("choice: ").lower()
         if choice_menu == options[0]:
             player.movement()
         elif choice_menu == options[1]:
            player.view_inventory()
         elif choice_menu == options[2]:
            player.look_for_items()
+        elif choice_menu == options[3]:
+            player.view_map()
         else:
             print("sorry that was not a vaild choice")  
 
