@@ -1,4 +1,6 @@
 import item_module as i
+from tabulate import tabulate
+
 
 class Room:
     
@@ -88,7 +90,7 @@ class Player:
             print(f"Your Inventory is empty.")
     
     def view_map(self):
-        print(f"{self.map}")
+        print(tabulate(self.map, tablefmt="simple"))
         print(f"Your in the {self.map[self.row][self.col].name}")
 
 
@@ -119,15 +121,15 @@ bedroom2  = Room("Bedroom", {i.teddy_bear.name :i.t_shirt,
                              i.candy_bar.name :i.candy_bar})
 
 the_house = [[bedroom1, bunker_entrence, kitchen],
-           [hallway, hallway, dining_room    ],
-           [bedroom2, hallway, living_room    ],
+           [hallway, hallway, dining_room],
+           [bedroom2, hallway, living_room],
            [garage , foyer, bathroom  ]]
     
 def playing():
     print("You turn on the tv to see BREAKING NEWS!")
     print("CHERNOBAL IS ABOUT TO EXPLODE!")
     print("You quickly remeber the bunker you have that should protect you" \
-    "form  the blast. But when you get in your bunker") 
+    "form the blast. But when you get in your bunker") 
     print("you relize that the bunker is in complete disarray!")
     print("Quickly, you need to find whatever" \
     " you can in your house to fix it up!")
@@ -150,4 +152,5 @@ def playing():
             print("sorry that was not a vaild choice")  
 
 player = Player(the_house)
+
 playing()
