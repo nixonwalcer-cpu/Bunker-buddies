@@ -1,6 +1,10 @@
 #ONLY FOR NIXON
 
+import player as p #So you can you the items in the players inventory
+
+
 def bunker_menu():
+     #Here you need to get player inventory 
      while True:
         print("1. instructions ")
         print("2. go back to house")
@@ -91,7 +95,7 @@ class Storage:
 
 
 
-bunker_menu()
+
 backpack = Storage("backpack",3)
 backpack.view_inventory()
 backpack.add_item("wrench")
