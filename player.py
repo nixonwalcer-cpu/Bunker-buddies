@@ -19,7 +19,7 @@ class Player:
         self.col = 1
         self.map = map
         self.inventory = []
-        self.capacity = 5
+        self.capacity = 15
 
     def movement(self):
         # Sub Men
@@ -139,6 +139,8 @@ def playing():
         print("What would you like to do?")
         for option in options:
             print(f"- {option.title()}")
+        if player.row == 0  and player.col == 1:
+            print("- Go to bunker")
         choice_menu = input("choice: ").lower()
         if choice_menu == options[0]:
             player.movement()
@@ -148,9 +150,9 @@ def playing():
            player.look_for_items()
         elif choice_menu == options[3]:
             player.view_map()
+        elif choice_menu == ("Go to bunker").lower():
+            break
         else:
             print("sorry that was not a vaild choice")  
 
 player = Player(the_house)
-
-playing()
