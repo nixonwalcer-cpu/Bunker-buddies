@@ -1,3 +1,6 @@
+#Actually a combaintion of the player code and the house code, and is all the code for the first hafe of the game.
+
+
 import item_module as i
 from tabulate import tabulate
 
@@ -15,19 +18,23 @@ class Room:
 class Player:
     
     def __init__(self, map):
+        #player loction to start with
         self.row = 3
         self.col = 1
+        #givinig it the map
         self.map = map
+        #player inventory and capacity
         self.inventory = []
         self.capacity = 15
 
     def movement(self):
         # Sub Men
-        movement_options = ["North", "South", "East", "West" ]
+        movement_options = ["North", "South", "East", "West" ]#different direction options
         print("\nWhere would you like to go?")
         for option in movement_options:
-            print(f" - {option}")
-        choice = input("choice: ")
+            print(f" - {option}")#printing out options
+        choice = input("choice: ")#gets player choice
+        #move you in dierction of your choice
         if choice == "North":
             if self.row > 0:
                 self.row -= 1
@@ -41,8 +48,8 @@ class Player:
             if self.col < 3:
                 self.col += 1
         else:
-            print("Sorry you can not move that way.")
-        print(f"Your in the {self.map[self.row][self.col].name}")
+            print("Sorry thats not a vaild choice.")
+        print(f"You're in the {self.map[self.row][self.col].name}")#prints wich room you're in
 
     def look_for_items(self):
         #sub menu
@@ -63,16 +70,17 @@ class Player:
                     print("Not a vaild choice")
             else:
                 print("There are no items in this room")
-                break
+                break#goes back to main menu
             
     def add_item(self, item):
         if len(self.inventory) < self.capacity:#checks if item fits in inventory
             print(f"You added a {item} to you inventory.")
-            self.inventory.append(item)
-            self.capacity = self.capacity - item.capacitcity
+            self.inventory.append(item)#adds item to inventory
+            self.capacity = self.capacity - item.capacitcity#remove room in inventory base off of capicity of item
         else:
             print(f"Sorry your inventory is already full.")
-
+    
+    #not currently in use 
     def remove_item(self, item):
         if item in self.inventory:
             print(f"You removed a {item} from your inventory.")
@@ -81,21 +89,21 @@ class Player:
             print(f"Sorry their are no {item}s in your inventory.")
 
     def view_inventory(self):
-        if len(self.inventory) > 0:
+        if len(self.inventory) > 0:#cheks if there is somthing in inventory
             print("Inventory:")
             for item in self.inventory:
-                print(f" - {item.name}, Capacity : {item.capacity}")
-            print(f"Capacity left: {self.capacity}")
+                print(f" - {item.name}, Capacity : {item.capacity}")#prints out all items and there capcity
+            print(f"Capacity left: {self.capacity}")#prints remaining sapce left in inventory
         else:
             print(f"Your Inventory is empty.")
     
     def view_map(self):
-        print(tabulate(self.map, tablefmt="simple"))
-        print(f"Your in the {self.map[self.row][self.col].name}")
+        print(tabulate(self.map, tablefmt="simple"))#tabulates map array 
+        print(f"Your in the {self.map[self.row][self.col].name}")#prints the room your in
 
 
             
-
+##creating rooms
 kitchen = Room("kitchen", {i.knife.name : i.knife, i.pan.name :i.pan, 
                            i.spatula.name : i.spatula} )
 bedroom1  = Room("Master Bedroom", {i.blanket.name : i.blanket, 
@@ -119,13 +127,14 @@ bathroom = Room("bathroom",{i.plunger.name :i.plunger,
 bedroom2  = Room("Bedroom", {i.teddy_bear.name :i.t_shirt, 
                              i.action_figure.name :i.action_figure, 
                              i.candy_bar.name :i.candy_bar})
-
+#creating map
 the_house = [[bedroom1, bunker_entrence, kitchen],
            [hallway, hallway, dining_room],
            [bedroom2, hallway, living_room],
            [garage , foyer, bathroom  ]]
     
 def playing():
+    #intro
     print("You turn on the tv to see BREAKING NEWS!")
     print("CHERNOBAL IS ABOUT TO EXPLODE!")
     print("You quickly remeber the bunker you have that should protect you" \
@@ -134,25 +143,27 @@ def playing():
     print("Quickly, you need to find whatever" \
     " you can in your house to fix it up!")
     print("")
-    while True:
-        options = ["move", "look at inventory", "look for items", "view map"]
+    while True:#Main menu
+        options = ["move", "look at inventory", "look for items", "view map"]#Menu options
         print("What would you like to do?")
         for option in options:
-            print(f"- {option.title()}")
+            print(f"- {option.title()}")#printing out options
         if player.row == 0  and player.col == 1:
-            print("- Go to bunker")
-        choice_menu = input("choice: ").lower()
+            print("- Go to bunker")#giving option to go to bunker if one bunker 
+        choice_menu = input("choice: ").lower()#getting choice form player
         if choice_menu == options[0]:
-            player.movement()
+            player.movement()#movement fuction
         elif choice_menu == options[1]:
-           player.view_inventory()
+           player.view_inventory()#view inventory fuction
         elif choice_menu == options[2]:
-           player.look_for_items()
+           player.look_for_items()#
         elif choice_menu == options[3]:
             player.view_map()
         elif choice_menu == ("Go to bunker").lower():
-            break
+            break#ends this loop/menu
         else:
             print("sorry that was not a vaild choice")  
 
-player = Player(the_house)
+player = Player(the_house)#creating player
+
+playing()
