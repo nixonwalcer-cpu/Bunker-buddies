@@ -1,9 +1,14 @@
-#Actually a combaintion of the player code and the house code, and is all the code for the first hafe of the game.
-
-
+#########################################################################################
+# Title:Player
+# Date:1/16/26
+# Version: I don't know we forgot to count
+#########################################################################################
+"""
+The code for the houses map, the room classes in the house and the player class
+"""
+#########################################################################################
 import item_module as i
 from tabulate import tabulate
-
 
 class Room:
     
@@ -13,28 +18,35 @@ class Room:
         
 
     def __str__(self):
+        '''Retunrns the name of each room, for printing purposes'''
         return self.name.title()
+    
 
 class Player:
     
     def __init__(self, map):
-        #player loction to start with
+        #Player loction
         self.row = 3
         self.col = 1
-        #givinig it the map
+
+        #Player map
         self.map = map
-        #player inventory and capacity
+
+        #Player inventory and capacity
         self.inventory = []
         self.capacity = 15
 
     def movement(self):
-        # Sub Men
-        movement_options = ["North", "South", "East", "West" ]#different direction options
+        # Sub Menu for movement
+        '''Print a list of directions, gets player to select one, 
+        then changer the row or coloum on the map base off of that choice.
+        Will loop after unless seletion it "back", wich will retrune player
+        to main menu'''
+        movement_options = ["North", "South", "East", "West" ]
         print("\nWhere would you like to go?")
         for option in movement_options:
-            print(f" - {option}")#printing out options
-        choice = input("choice: ")#gets player choice
-        #move you in dierction of your choice
+            print(f" - {option}")
+        choice = input("choice: ")
         if choice == "North":
             if self.row > 0:
                 self.row -= 1
@@ -49,121 +61,139 @@ class Player:
                 self.col += 1
         else:
             print("Sorry thats not a vaild choice.")
-        print(f"You're in the {self.map[self.row][self.col].name}")#prints wich room you're in
-
+        print(f"You're in the {self.map[self.row][self.col].name}")
+    
     def look_for_items(self):
-        #sub menu
-        while True:#while loop
-            if self.map[self.row][self.col].item != None:#makes sure items are in the room
+        #Sub menu for looking for items
+        '''Gets the list of items of the room the player is currently in, prints them out,
+        and gets the player to select one, then uses the add items function. It will then loop
+        unless plyaer selects "back", wich will retunr them to the main menu'''
+        while True:
+            if self.map[self.row][self.col].item != None:
                 print(f"Here are the items in the {self.map[self.row][self.col].name}:")
-                items = self.map[self.row][self.col].item#gets dict
-                for item in items.keys():#prints out items
+                items = self.map[self.row][self.col].item
+                for item in items.keys():
                     print(f" - {item}, Capacity : {items[item].capacity}")
-                print(" - Back")#go back to main menu
-                choice_item = input("Wich one do you want:")# gets choice form player
-                if choice_item in items.keys():#checks if choice is vaild
-                    self.add_item(choice_item)#add item to inventory
-                    del self.map[self.row][self.col].item[choice_item]#del item form dict
+                print(" - Back")
+                choice_item = input("Wich one do you want:")
+                if choice_item in items.keys():
+                    self.add_item(items[choice_item])
+                    del self.map[self.row][self.col].item[choice_item]
                 elif choice_item == "Back":
                     break
                 else:
                     print("Not a vaild choice")
             else:
                 print("There are no items in this room")
-                break#goes back to main menu
-            
+                break
+    
     def add_item(self, item):
-        if len(self.inventory) < self.capacity:#checks if item fits in inventory
-            print(f"You added a {item} to you inventory.")
-            self.inventory.append(item)#adds item to inventory
-            self.capacity = self.capacity - item.capacitcity#remove room in inventory base off of capicity of item
-        else:
+        #Add item function 
+        '''Checks if player inventory is full, and if it isn't, will put the item attribute it got form
+        the "Look for items" function, and adds it from the player inventory list'''
+        if len(self.inventory) < self.capacity:
+            print(f"You added a {item.name} to you inventory.")
+            self.inventory.append(item)
+            self.capacity = self.capacity - item.capacity
+        else:   
             print(f"Sorry your inventory is already full.")
     
-    #not currently in use 
-    def remove_item(self, item):
-        if item in self.inventory:
-            print(f"You removed a {item} from your inventory.")
-            self.inventory.remove(item)
-        else:
-            print(f"Sorry their are no {item}s in your inventory.")
-
+    
     def view_inventory(self):
-        if len(self.inventory) > 0:#cheks if there is somthing in inventory
+        #Function to look at inventory
+        '''Checks if there's somthing in the inventory, and if there is, print the item(s) name and capcity,
+        and then what room in you inventory you have left'''
+        if len(self.inventory) > 0:
             print("Inventory:")
             for item in self.inventory:
-                print(f" - {item.name}, Capacity : {item.capacity}")#prints out all items and there capcity
-            print(f"Capacity left: {self.capacity}")#prints remaining sapce left in inventory
+                print(f" - {item.name}, Capacity : {item.capacity}")
+            print(f"Capacity left: {self.capacity}")
         else:
             print(f"Your Inventory is empty.")
     
     def view_map(self):
-        print(tabulate(self.map, tablefmt="simple"))#tabulates map array 
-        print(f"Your in the {self.map[self.row][self.col].name}")#prints the room your in
+        #Function for looking at map
+        '''Use tabulate to format the map correctly for printing, then prints the room your in'''
+        print(tabulate(self.map, tablefmt = "simple"))
+        print(f"Your in the {self.map[self.row][self.col].name}")
 
 
             
-##creating rooms
-kitchen = Room("kitchen", {i.knife.name : i.knife, i.pan.name :i.pan, 
+#Creating rooms
+kitchen = Room("kitchen", {i.knife.name : i.knife, i.pan.name : i.pan, 
                            i.spatula.name : i.spatula} )
+
 bedroom1  = Room("Master Bedroom", {i.blanket.name : i.blanket, 
-                                    i.teddy_bear.name :i.teddy_bear, 
-                                    i.gum.name :i.gum} )
+                                    i.teddy_bear.name : i.teddy_bear, 
+                                    i.gum.name : i.gum} )
 hallway  = Room("Hallway", None)
+
 living_room  = Room("Living_room",{i.pillow.name : i.pillow, 
-                                   i.lamp.name :i.lamp, 
+                                   i.lamp.name : i.lamp, 
                                    i.battries.name : i.battries} )
+
 dining_room  = Room("Dinig_room", {i.fork.name : i.fork, 
-                                   i.spoon.name :i.spoon, 
-                                   i.plate.name :i.plate})
+                                   i.spoon.name : i.spoon, 
+                                   i.plate.name : i.plate})
+
 garage = Room("Garage", {i.hammer.name : i.hammer, 
-                         i.duct_tape.name :i.duct_tape, 
-                         i.screwdriver.name :i.screwdriver})
+                         i.duct_tape.name : i.duct_tape, 
+                         i.screwdriver.name : i.screwdriver})
+
 bunker_entrence  = Room("bunker_entrence", None)
+
 foyer  = Room("foyer", None)
-bathroom = Room("bathroom",{i.plunger.name :i.plunger, 
-                            i.toothpaste.name :i.toothpaste, 
-                            i.mouthwash.name :i.mouthwash})
-bedroom2  = Room("Bedroom", {i.teddy_bear.name :i.t_shirt, 
-                             i.action_figure.name :i.action_figure, 
-                             i.candy_bar.name :i.candy_bar})
-#creating map
+
+bathroom = Room("bathroom",{i.plunger.name : i.plunger, 
+                            i.toothpaste.name : i.toothpaste, 
+                            i.mouthwash.name : i.mouthwash})
+
+bedroom2  = Room("Bedroom", {i.teddy_bear.name : i.t_shirt, 
+                             i.action_figure.name : i.action_figure, 
+                             i.candy_bar.name : i.candy_bar})
+
+#Creating map
 the_house = [[bedroom1, bunker_entrence, kitchen],
-           [hallway, hallway, dining_room],
-           [bedroom2, hallway, living_room],
-           [garage , foyer, bathroom  ]]
-    
+             [hallway, hallway, dining_room],
+             [bedroom2, hallway, living_room],
+             [garage , foyer, bathroom  ]]
+
+
 def playing():
-    #intro
-    print("You turn on the tv to see BREAKING NEWS!")
-    print("CHERNOBAL IS ABOUT TO EXPLODE!")
-    print("You quickly remeber the bunker you have that should protect you" \
-    "form the blast. But when you get in your bunker") 
-    print("you relize that the bunker is in complete disarray!")
-    print("Quickly, you need to find whatever" \
-    " you can in your house to fix it up!")
+    #Main game funtion
+    '''Prints out and intro, then prints out different options the player can choose, makes the player give
+    a selection, then goes to the function corrasponding to the selection''' 
+    #Intro
+    print('''You turn on the tv to see BREAKING NEWS!
+    ---CHERNOBAL IS ABOUT TO EXPLODE!---
+    You quickly remeber the bunker you have that should protect you 
+    form the blast. But when you get in your bunker
+    you relize that the bunker is in complete disarray!
+    Quickly, you need to find whateveryou can in your house to fix it up!''')
     print("")
-    while True:#Main menu
-        options = ["move", "look at inventory", "look for items", "view map"]#Menu options
+    #Main menu
+    while True:
+        options = ["move", "look at inventory", "look for items", "view map"]
         print("What would you like to do?")
         for option in options:
-            print(f"- {option.title()}")#printing out options
+            print(f"- {option.title()}")
         if player.row == 0  and player.col == 1:
-            print("- Go to bunker")#giving option to go to bunker if one bunker 
-        choice_menu = input("choice: ").lower()#getting choice form player
+            print("- Go to bunker") 
+        choice_menu = input("choice: ").lower()
         if choice_menu == options[0]:
-            player.movement()#movement fuction
+            player.movement()
         elif choice_menu == options[1]:
-           player.view_inventory()#view inventory fuction
+           player.view_inventory()
         elif choice_menu == options[2]:
-           player.look_for_items()#
+           player.look_for_items()
         elif choice_menu == options[3]:
             player.view_map()
         elif choice_menu == ("Go to bunker").lower():
-            break#ends this loop/menu
+            break
         else:
             print("sorry that was not a vaild choice")  
 
-player = Player(the_house)#creating player
 
-playing()
+#Creating player
+player = Player(the_house)
+
