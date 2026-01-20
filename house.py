@@ -1,3 +1,5 @@
+#No longer in use, outdated
+
 class Room:
     
     def __init__(self,  name, item):
@@ -7,7 +9,7 @@ class Room:
 
     def __str__(self):
         return self.name.title()
-    
+  
 kitchen = Room("kitchen", "Knife")
 bedroom  = Room("Bedroom", "Blanket")
 hallway  = Room("Hallway", None)

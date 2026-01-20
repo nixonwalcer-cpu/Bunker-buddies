@@ -1,10 +1,20 @@
+#########################################################################################
+# Title:Item
+# Date:1/16/26
+# Version: I don't know we forgot to count
+#########################################################################################
+"""
+Item class and creating all items
+"""
+#########################################################################################
+
 class Item:
     
     def __init__(self, name, capacity):
         self.name = name
         self.capacity = int(capacity)
 
-
+#creating items
 knife = Item("Kinfe", 2)
 pan = Item("Pan", 3)
 spatula = Item("Spatula", 2)

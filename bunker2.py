@@ -7,8 +7,8 @@ playing_bunker = True
 class Storage:
     def __init__(self, name, capacity):
         self.name = name
-        self.inventory = p.inventory
-        self.capacity = p.capacity
+        self.inventory = p.player.inventory
+        self.capacity = p.player.capacity
        
     def view_inventory(self):
         if len(self.inventory) > 0:
@@ -129,7 +129,7 @@ def room_menu(player, room):
         if choice == "1":
             player.inventory.view_inventory()
         elif choice == "2":
-            if room.task and not current_room.task.completed:
+            if room.task and not room.task.completed:
                 room.task.do_task(player)
             else:
                 print("there is nothing else to do in this room")
