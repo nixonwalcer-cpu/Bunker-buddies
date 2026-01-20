@@ -7,8 +7,8 @@ playing_bunker = True
 class Storage:
     def __init__(self, name, capacity):
         self.name = name
-        self.inventory = p.player.inventory
-        self.capacity = p.player.capacity
+        self.inventory = p.inventory
+        self.capacity = p.capacity
        
     def view_inventory(self):
         if len(self.inventory) > 0:
@@ -100,6 +100,7 @@ def move_around_bunker():
         current_room = bunker_map[player.row][player.col]
         print(f"you are in the {current_room.name}. ")
         print(current_room.description)
+        room_menu(player, current_room)
         print("\nDirections:")
         print("1. go back")
         print("use w a s d to move around the bunker")
@@ -118,7 +119,26 @@ def move_around_bunker():
             print("please use w, a, s, d to move around")
 
 
-
+def room_menu(player, room):
+    while True:
+        print("___- ROOM MENU -___")
+        print("1. View inventory")
+        print("2. Use item")
+        print("3. Go back")
+        choice = input("> ")
+        if choice == "1":
+            player.inventory.view_inventory()
+        elif choice == "2":
+            if room.task and not current_room.task.completed:
+                room.task.do_task(player)
+            else:
+                print("there is nothing else to do in this room")
+        elif choice == "3":
+            return
+        else:
+            print("invalid choice")
+    
+    
 
 class Task:
     def __init__(self, description, required_item):
@@ -140,6 +160,7 @@ class Task:
                 print("you left the task")
             if item == self.required_item:
                 print("You finished the task! go to the next task!!")
+                task_doer.inventory.remove_item(item)
             self.completed = True
         else:
             print("WRONG ITEM. you have to use the right item to fix the bunker!")
