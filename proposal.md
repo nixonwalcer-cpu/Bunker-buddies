@@ -1,4 +1,4 @@
-# Bunker Buddies - Ms. Lynn was here :)
+# Bunker Buddies 
 
 
 ## Description:
